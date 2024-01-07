@@ -1,0 +1,639 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+:root {
+  --text-color: #000000; /* Change text color to black */
+  --icon-color: #ACACBE;
+  --icon-hover-bg: #5b5e71;
+  --placeholder-color: #dcdcdc;
+  --outgoing-chat-bg: #FFFFFF; /* Change background to white */
+  --incoming-chat-bg: #444654;
+  --outgoing-chat-border: #FFFFFF; /* Change border to white */
+  --incoming-chat-border: #444654;
+}
+
+body {
+  background: var(--outgoing-chat-bg);
+  margin: 0;
+  overflow: hidden; /* Hide body overflow to prevent scrollbars */
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 250px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: scroll;
+  /* Add these styles to make it fill the height and be visible in mobile view */
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+/* Sidebar button styles */
+.sidebar-button {
+  background-color: #007BFF;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+/* Chat container and user chat adjustments */
+.chat-container .chat, .chat .chat-details.user {
+  padding: 10px 10px; /* Adjust padding to reduce vertical space */
+  display: flex;
+  align-items: flex-start; /* Align the user image and text to the top */
+}
+
+/* Chats container styling */
+.chat-container {
+  overflow-y: auto;
+  max-height: 100vh;
+  padding-bottom: 150px;
+  margin-left: 300px; /* Adjust margin to account for sidebar width */
+}
+
+/* Scrollbar styles */
+:where(.chat-container, textarea)::-webkit-scrollbar {
+  width: 6px;
+}
+:where(.chat-container, textarea)::-webkit-scrollbar-track {
+  background: var(--incoming-chat-bg);
+  border-radius: 25px;
+}
+:where(.chat-container, textarea)::-webkit-scrollbar-thumb {
+  background: var(--icon-color);
+  border-radius: 25px;
+}
+
+/* Default text styles */
+.default-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 70vh;
+  padding: 0 10px;
+  text-align: center;
+  color: var(--text-color);
+  margin-top: 20px; /* Add space between ChatGPT image and text */
+}
+.default-text h1 {
+  font-size: 3.3rem;
+}
+.default-text p {
+  font-size: 1.1rem;
+}
+
+/* User chat image adjustments */
+.chat .chat-details.user img {
+  align-self: flex-end; /* Align the user image to the bottom */
+  margin-right: 10px; /* Add margin to create space between the user image and text */
+}
+
+/* User chat prompt adjustments */
+.chat .chat-details.user p {
+  white-space: pre-wrap;
+  font-size: 1.05rem;
+  padding: 10px 20px; /* Adjust padding to add background */
+  color: var(--text-color);
+  word-break: break-word;
+  background: #ECECEC; /* Add a background color for user prompts */
+  border-radius: 10px; /* Add rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a shadow effect */
+  margin-left: 10px;
+}
+
+/* Add gap between user and chatbot messages */
+.chat-container .chat .chat-details.user + .chat-details.user {
+  margin-top: 10px;
+}
+.product-image {
+  margin-right: 20px;
+}
+.product-img {
+  width: 150px; /* Adjust as needed */
+  height: 150px; /* Adjust as needed */
+  object-fit: cover;
+  border-radius: 2px; /* Adjust space between image and details */
+}
+.user-chatbot-img {
+  width: 50px; /* Adjust as needed */
+  height: 50px; /* Adjust as needed */
+  align-self: flex-start;
+  object-fit: cover;
+  border-radius: 2px;
+  margin-right: 10px;
+}
+
+.chat .chat-content {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+span.material-symbols-rounded {
+  user-select: none;
+  cursor: pointer;
+}
+.chat .chat-content span {
+  cursor: pointer;
+  font-size: 1.3rem;
+  color: var(--icon-color);
+  visibility: hidden;
+}
+.chat:hover .chat-content:not(:has(.typing-animation), :has(.error)) span {
+  visibility: visible;
+}
+
+/* Chatbot-generated text adjustments */
+/* Chatbot-generated text adjustments */
+.chat .chat-details.bot p {
+  white-space: pre-wrap;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  display: inline !important;
+  color: white; /* White text color */
+  word-break: break-word;
+  background: #007BFF;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-left: 10px;
+  vertical-align: super;
+}
+.typing-animation {
+  display: inline-block;
+  margin-left: 10px; /* Adjust as needed for spacing */
+}
+
+.dot-1, .dot-2, .dot-3 {
+  width: 6px;
+  height: 6px;
+  background-color: #333;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 4px;
+  animation: typingDot 1.5s infinite;
+}
+
+@keyframes typingDot {
+  0%, 20% {
+    background-color: #333;
+  }
+  50%, 80% {
+    background-color: transparent;
+  }
+}
+
+/* Center Typing Container with Chat Input */
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Typing Container Styles */
+.typing-container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  padding: 20px 10px;
+  justify-content: left;
+  background: var(--outgoing-chat-bg);
+  z-index: 2;
+}
+.typing-container .typing-content {
+  display: flex;
+  max-width: 950px;
+  width: 100%;
+  align-items: flex-end;
+}
+.typing-container .typing-textarea {
+  width: 100%;
+  display: flex;
+  position: relative;
+  color:white;
+}
+
+/* Chat Input Styles */
+.typing-textarea {
+  display: flex;
+  align-items: center;
+  background: var(--incoming-chat-bg);
+  padding: 15px;
+}
+/* Add cursor style to the text box */
+.typing-textarea textarea {
+  flex: 1;
+  resize: none;
+  height: 30px;
+  border: 1px solid black; /* Set border color to black */
+  padding: 0 20px;
+  color: white; /* Set text color to white */
+  font-size: 1rem;
+}
+
+
+
+.typing-textarea textarea::placeholder {
+  color: var(--placeholder-color);
+}
+
+.typing-textarea textarea:focus {
+  background: var(--incoming-chat-bg);
+}
+
+.typing-controls {
+  display: flex;
+}
+.typing-controls span {
+  margin-left: 7px;
+  font-size: 1.4rem;
+  background: var(--incoming-chat-bg);
+  outline: 1px solid var(--incoming-chat-border);
+}
+.typing-controls span:hover {
+  background: var(--icon-hover-bg);
+}
+@media screen and (max-width: 600px) {
+  .default-text h1 {
+    font-size: 2.3rem;
+  }
+  :where(.default-text p, textarea, .chat p) {
+    font-size: 0.95rem!important;
+  }
+  .chat-container .chat {
+    padding: 20px 10px;
+  }
+  .chat-container .chat img {
+    height: 32px;
+    width: 32px;
+  }
+  .chat-container .chat p {
+    padding: 0 20px;
+  }
+  .chat .chat-content:not(:has(.typing-animation), :has(.error)) span {
+    visibility: visible;
+  }
+  .typing-container {
+    padding: 15px 10px;
+  }
+  .typing-textarea textarea {
+    height: 45px;
+    padding: 10px 40px 10px 10px;
+  }
+  .typing-content span {
+    height: 45px;
+    width: 45px;
+    margin-left: 5px;
+  }
+  span.material-symbols-rounded {
+    font-size: 1.25rem!important;
+  }
+}
+
+
+.advertisement-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Add a gap between the product elements */
+}
+
+.product {
+  margin-top: 20px; /* Add space between ChatGPT image and text */
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.product a {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.product img {
+  width: 100%;
+  max-height: 250px; /* Increase image size */
+  object-fit: cover;
+}
+
+.product-overlay {
+  background: rgba(0, 0, 0, 0.8); /* Darken the overlay */
+  padding: 10px; /* Increase padding */
+  text-align: center; /* Center the text */
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: #fff; /* Change text color to white */
+  opacity: 0;
+  transition: opacity 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.product:hover .product-overlay {
+  opacity: 1; /* Show the overlay on hover */
+}
+
+.price {
+  margin: 5px 0; /* Add space between ChatGPT image and text */
+  font-weight: bold;
+  font-size: 1.2rem; /* Increase font size */
+}
+
+.product-price-link {
+  color: #007BFF;
+  text-decoration: underline;
+  font-size: 1rem; /* Adjust font size */
+}
+.user-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  bottom: 10px; /* Adjust the bottom spacing as needed */
+  left: 10px; /* Adjust the left spacing as needed */
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+
+/* Larger Modal Content */
+/* CSS for the modal */
+.modal {
+  display: none;
+  /* ... other styles ... */
+}
+
+/* Style for Textareas */
+textarea {
+  width: 100%; /* Make textareas occupy full width */
+  padding: 10px;
+  margin-bottom: 10px;
+  resize: vertical; /* Allow vertical resizing */
+}
+
+/* Modal Content */
+/* CSS for the modal */
+.modal {
+  display: none;
+  /* ... other styles ... */
+}
+
+/* Style for Textareas */
+textarea {
+  width: 100%; /* Make textareas occupy full width */
+  padding: 10px;
+  margin-bottom: px;
+  resize: vertical; /* Allow vertical resizing */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fff;
+  margin: auto;
+  padding: 40px;
+  border: 1px solid #888;
+  max-width: 600px; /* Adjust the maximum width as needed */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative; /* Position relative for absolute positioning of buttons */
+}
+
+/* Style the label for the toggle button */
+label {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+/* Modal Buttons Container */
+.modal-buttons {
+  text-align: center;
+  /* No margin-top, buttons will be right below the textarea */
+  position: relative; /* Position relative for absolute positioning of buttons */
+}
+
+/* Style for buttons */
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Position the buttons at the bottom */
+#cancelButton {
+  position: absolute;
+  bottom: 1px;
+  left: 10px;
+}
+#SaveButton {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+}
+#chat-input {
+  border: 1px solid black;
+  background-color: black;
+}
+/* Close button on top-right corner */
+.close {
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+}
+
+/* Style the toggle container */
+.toggle-container {
+  position: absolute;
+  bottom: 10px; /* Adjust this value based on your design preferences */
+  left: 20px; /* Equal to the padding of the .sidebar for alignment */
+  right: 20px;
+}
+
+/* Style the toggle label */
+
+
+/* Style the toggle button */
+.toggle-button {
+  flex-shrink: 0; /* Don't shrink */
+  margin-right: 20px; /* Add space between label and button */
+}
+
+/* Style the toggle button input */
+#toggleAdsButton {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 60px;
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 30px;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+/* Style the toggle button label */
+#toggleAdsButton::before {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s;
+}
+
+/* Style the slider knob */
+#toggleAdsButton::after {
+  content: "";
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s;
+}
+
+/* Style the toggle button when it's checked (ON) */
+#toggleAdsButton:checked::after {
+  transform: translateX(30px);
+}
+
+/* Style the toggle button when it's checked (ON) */
+#toggleAdsButton:checked::before {
+  opacity: 0; /* Hide the label text when ON */
+}
+
+/* Style the toggle button when it's checked (ON) */
+#toggleAdsButton:checked {
+  background-color: #4CAF50; /* Green color when ON */
+}
+
+
+/* Style the status text */
+#adsStatus {
+  font-size: 16px;
+  margin-left: 10px;
+  color: #4CAF50; /* Green color when ON */
+}
+#loginButton {
+  background-color: #3498db;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px; /* Adjust padding to make it smaller */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  bottom: 10px; /* Adjust the bottom position as needed */
+  right: 10px; /* Adjust the left position as needed */
+}
+
+#loginButton:hover {
+  background-color: #2980b9; /* Slightly darker blue on hover */
+}
+
+#adminSection {
+  display: none;  /* Initially hidden */
+  flex: 1;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+}
+
+#adminName {
+  color: #2ecc71; /* Green color */
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.typing-indicator {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.typing-indicator span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #333; /* Change the color to fit your design */
+  margin: 0 2px;
+  /* Animation */
+  animation: typing-bounce 1.4s infinite both;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0;
+}
+
+@keyframes typing-bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1.0); }
+}
+
+.copy-symbol {
+  cursor: pointer;
+  margin-left: 5px;
+  vertical-align: middle;
+  /* Additional styling as needed */
+}
+
