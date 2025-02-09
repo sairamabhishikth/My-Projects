@@ -5,7 +5,7 @@ const chatContainer = document.querySelector(".chat-container");
 let userText = '';
 let customInstructions = ""; // Initialize at the top of your JS
 
-const API_KEY = "enter your API Key"; 
+const API_KEY = "Enter your API KEY"; 
 
 const newChatButton = document.querySelector("#new-chat-btn");
 
